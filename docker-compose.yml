@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    ports:
+      - $MONGO_PORT:$MONGO_PORT
+    volumes:
+     - ./mongo_data:/data/db
+
+  api:
+    container_name: url-shortener
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: url-shortener
+    env_file: .env
+    depends_on:
+      - mongo
+    ports:
+      - 80:$PORT
+    environment:
+      NODE_ENV: production
+      MONGO_HOST: mongo
+    links:
+      - mongo
+    volumes:
+      - ./:/dist
+
+volumes:
+  mongo:
+    driver: local
