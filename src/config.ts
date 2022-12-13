@@ -3,6 +3,9 @@ import { registerAs } from '@nestjs/config';
 export default registerAs('config', () => {
   return {
     port: parseInt(process.env.PORT, 10) || 3000,
+
+    urlBase: 'http://tier.app',
+
     mongo: {
       dbName: process.env.MONGO_DB,
       user: process.env.MONGO_USERNAME,

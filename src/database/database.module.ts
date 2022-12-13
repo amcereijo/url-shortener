@@ -7,7 +7,24 @@ import config from '../config';
 
 @Global()
 @Module({
-  imports: [MongooseModule],
+  imports: [
+    MongooseModule.forRootAsync({
+      useFactory: (configService: ConfigType<typeof config>) => {
+        const { connection, user, password, host, port, dbName } =
+          configService.mongo;
+        return {
+          uri:
+            user && password
+              ? `${connection}://${user}:${password}@${host}:${port}`
+              : `${connection}://${host}:${port}`,
+          user,
+          pass: password,
+          dbName,
+        };
+      },
+      inject: [config.KEY],
+    }),
+  ],
   providers: [
     {
       provide: 'MONGO',

@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
-import config from './config';
-import { DatabaseModule } from './database/database.module';
-import { StatusModule } from './modules/status/status.module';
-import { CreateShortModule } from './modules/url/create-short.module';
+import config from '../src/config';
+import { rootMongooseTestModule } from './fixtures/MongoMemoryServer';
+import { StatusModule } from '../src/modules/status/status.module';
+import { CreateShortModule } from '../src/modules/url/create-short.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: '.env',
+      envFilePath: '.env.test',
       load: [config],
       isGlobal: true,
       validationSchema: Joi.object({
@@ -22,9 +22,9 @@ import { CreateShortModule } from './modules/url/create-short.module';
         MONGO_CONNECTION: Joi.string().required(),
       }),
     }),
+    rootMongooseTestModule(),
     StatusModule,
-    DatabaseModule,
     CreateShortModule,
   ],
 })
-export class AppModule {}
+export class AppTestingModule {}

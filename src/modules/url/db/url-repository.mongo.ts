@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import Url from '../domain/url';
 import { UrlRepository } from '../domain/url.repository';
-import { CreateShortMapper } from '../mappers/create-short.mapper';
+import { UrlMapper } from '../mappers/url.mapper';
 import { UrlEntity } from './url.entity';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UrlRepositoryMongo implements UrlRepository<Url> {
   constructor(
     @InjectModel('Url')
     private readonly urlModel: Model<UrlEntity>,
-    private readonly mapper: CreateShortMapper,
+    private readonly mapper: UrlMapper,
   ) {}
 
   async findByOriginalUrl(originalUrl: string): Promise<Url> {

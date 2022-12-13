@@ -6,8 +6,9 @@ import {
   closeInMongodConnection,
   rootMongooseTestModule,
 } from '../../../../test/fixtures/MongoMemoryServer';
+import config from '../../../config';
 import Url from '../domain/url';
-import { CreateShortMapper } from '../mappers/create-short.mapper';
+import { UrlMapper } from '../mappers/url.mapper';
 import { UrlRepositoryMongo } from './url-repository.mongo';
 import { UrlEntity } from './url.entity';
 import { UrlSchema } from './url.schema';
@@ -22,7 +23,14 @@ describe('UrlRepository', () => {
         rootMongooseTestModule(),
         MongooseModule.forFeature([{ name: 'Url', schema: UrlSchema }]),
       ],
-      providers: [UrlRepositoryMongo, CreateShortMapper],
+      providers: [
+        UrlRepositoryMongo,
+        {
+          provide: 'config',
+          useFactory: config,
+        },
+        UrlMapper,
+      ],
     }).compile();
 
     urlRepository = module.get<UrlRepositoryMongo>(UrlRepositoryMongo);
