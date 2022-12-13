@@ -6,6 +6,7 @@ import { DatabaseModule } from './database/database.module';
 import RabbitMQ from './message-broker/message-broker.rabbitmq';
 import { StatusModule } from './modules/status/status.module';
 import { UrlModule } from './modules/url/url.module';
+import { StaticsModule } from './modules/statics/statics.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UrlModule } from './modules/url/url.module';
     StatusModule,
     DatabaseModule,
     UrlModule,
+    StaticsModule,
   ],
   providers: [
     {

@@ -6,6 +6,7 @@ import { rootMongooseTestModule } from './fixtures/MongoMemoryServer';
 import { StatusModule } from '../src/modules/status/status.module';
 import RabbitMQ from '../src/message-broker/message-broker.rabbitmq';
 import { UrlModule } from '../src/modules/url/url.module';
+import { StaticsModule } from '../src/modules/statics/statics.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { UrlModule } from '../src/modules/url/url.module';
     rootMongooseTestModule(),
     StatusModule,
     UrlModule,
+    StaticsModule,
   ],
   providers: [
     {
