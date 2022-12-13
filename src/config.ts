@@ -4,7 +4,7 @@ export default registerAs('config', () => {
   return {
     port: parseInt(process.env.PORT, 10) || 3000,
 
-    urlBase: 'http://tier.app',
+    urlBase: process.env.BASE_URL,
 
     mongo: {
       dbName: process.env.MONGO_DB,
@@ -13,6 +13,13 @@ export default registerAs('config', () => {
       port: parseInt(process.env.MONGO_PORT, 10),
       host: process.env.MONGO_HOST,
       connection: process.env.MONGO_CONNECTION,
+    },
+
+    rabbitMQ: {
+      url: `amqp://${process.env.RABBIT_USER}:${process.env.RABBIT_PASS}@${process.env.RABBIT_HOST}:${process.env.RABBIT_PORT}`,
+      visitUrl: {
+        queue: 'visit_url_queue',
+      },
     },
   };
 });

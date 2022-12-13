@@ -89,4 +89,29 @@ describe('UrlRepository', () => {
       expect(urlEntity.shortToken).toBe('sdfdf');
     });
   });
+
+  describe('findByShortToken', () => {
+    beforeAll(async () => {
+      await urlModel.insertMany([
+        { originalUrl: 'http://google.es/path', shortToken: 'sdfdf' },
+        { originalUrl: 'http://other.es/path', shortToken: 'sdsfd' },
+      ]);
+    });
+    afterAll(async () => {
+      await urlModel.deleteMany({});
+    });
+
+    it('when there are available data for url, should return correct data', async () => {
+      const element = await urlRepository.findByShortToken('sdsfd');
+
+      expect(element.originalUrl).toBe('http://other.es/path');
+      expect(element.getShortToken()).toBe('sdsfd');
+    });
+
+    it('when there are available data for url, should retur null', async () => {
+      const element = await urlRepository.findByShortToken('patsadsdsh');
+
+      expect(element).toBeNull();
+    });
+  });
 });

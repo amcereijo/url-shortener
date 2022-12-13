@@ -16,7 +16,7 @@ describe('Module url/create-short (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
 
-    configure(app);
+    await configure(app);
 
     await app.init();
   });

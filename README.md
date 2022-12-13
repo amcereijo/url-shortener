@@ -48,6 +48,8 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+***Note***  - to run e2e tests, rabbitmq is required (run `docker-compose up rabbitmq`)
+
 ### Uses cases
 
 #### POST /create - create short url
@@ -55,3 +57,4 @@ ToDo
 
 #### get /:token - redirect to original url
 ToDo
+On local machine, even when base url is set to `http://tier.app` , to test the functionality, we need to use `http://localhost` (this can be set on .env files)

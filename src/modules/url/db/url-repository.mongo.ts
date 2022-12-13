@@ -37,4 +37,18 @@ export class UrlRepositoryMongo implements UrlRepository<Url> {
 
     return this.mapper.fromEntityToDomain(urlEntity);
   }
+
+  async findByShortToken(shortToken: string): Promise<Url> {
+    const urlEntity = await this.urlModel.findOne({
+      shortToken,
+    });
+
+    this.logger.warn(`findByShortToken for ${shortToken}: ${urlEntity}`);
+
+    if (urlEntity) {
+      return this.mapper.fromEntityToDomain(urlEntity);
+    }
+
+    return null;
+  }
 }

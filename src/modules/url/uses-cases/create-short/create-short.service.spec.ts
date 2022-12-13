@@ -15,6 +15,7 @@ describe('CreateShortService', () => {
   const urlRepositoryMock: UrlRepository<Url> = {
     findByOriginalUrl: findByOriginalUrlMock,
     insert: insertMock,
+    findByShortToken: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -41,7 +42,7 @@ describe('CreateShortService', () => {
     expect(service).toBeDefined();
   });
 
-  describe('"create" method', () => {
+  describe('"execute" method', () => {
     describe('when url exists on database for the url', () => {
       const existingUrl = new Url('http://google.com', 'toke');
       let createShortResult: CreateShortUrlDto;

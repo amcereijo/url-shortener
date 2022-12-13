@@ -1,5 +1,5 @@
 import { Body, Controller, HttpCode, Inject, Post } from '@nestjs/common';
-import { UrlMapper } from '../mappers/url.mapper';
+import { UrlMapper } from '../../mappers/url.mapper';
 import { CreateShortUrlRequestDto } from './create-short.request.dto';
 import { CreateShortService } from './create-short.service';
 

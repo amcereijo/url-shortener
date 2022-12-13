@@ -8,10 +8,10 @@ function generateToken(data) {
     .update(data)
     .digest('hex');
 }
+const logger = new Logger('Url');
 
 export default class Url {
   private shortToken: string;
-  private logger = new Logger(Url.name);
 
   constructor(readonly originalUrl: string, shortToken?: string) {
     this.shortToken = shortToken;
@@ -20,9 +20,7 @@ export default class Url {
   generateShortToken(): string {
     this.shortToken = generateToken(this.originalUrl);
 
-    this.logger.debug(
-      `Generated token  ${this.shortToken} for ${this.originalUrl}`,
-    );
+    logger.debug(`Generated token  ${this.shortToken} for ${this.originalUrl}`);
 
     return this.shortToken;
   }

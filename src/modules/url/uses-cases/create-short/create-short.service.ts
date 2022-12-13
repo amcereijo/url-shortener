@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import Url from '../domain/url';
-import { UrlRepository } from '../domain/url.repository';
-import { UrlMapper } from '../mappers/url.mapper';
+import Url from '../../domain/url';
+import { UrlRepository } from '../../domain/url.repository';
+import { UrlMapper } from '../../mappers/url.mapper';
 import { CreateShortUrlDto } from './create-short.dto';
 
 @Injectable()

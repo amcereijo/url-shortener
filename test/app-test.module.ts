@@ -4,7 +4,8 @@ import * as Joi from 'joi';
 import config from '../src/config';
 import { rootMongooseTestModule } from './fixtures/MongoMemoryServer';
 import { StatusModule } from '../src/modules/status/status.module';
-import { CreateShortModule } from '../src/modules/url/create-short.module';
+import RabbitMQ from '../src/message-broker/message-broker.rabbitmq';
+import { UrlModule } from '../src/modules/url/url.module';
 
 @Module({
   imports: [
@@ -24,7 +25,13 @@ import { CreateShortModule } from '../src/modules/url/create-short.module';
     }),
     rootMongooseTestModule(),
     StatusModule,
-    CreateShortModule,
+    UrlModule,
+  ],
+  providers: [
+    {
+      provide: 'MESSAGE_BROKER',
+      useFactory: () => new RabbitMQ(),
+    },
   ],
 })
 export class AppTestingModule {}

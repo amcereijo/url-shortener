@@ -3,8 +3,9 @@ import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
+import RabbitMQ from './message-broker/message-broker.rabbitmq';
 import { StatusModule } from './modules/status/status.module';
-import { CreateShortModule } from './modules/url/create-short.module';
+import { UrlModule } from './modules/url/url.module';
 
 @Module({
   imports: [
@@ -24,7 +25,13 @@ import { CreateShortModule } from './modules/url/create-short.module';
     }),
     StatusModule,
     DatabaseModule,
-    CreateShortModule,
+    UrlModule,
+  ],
+  providers: [
+    {
+      provide: 'MESSAGE_BROKER',
+      useFactory: () => new RabbitMQ(),
+    },
   ],
 })
 export class AppModule {}
